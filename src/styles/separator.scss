@@ -1,0 +1,20 @@
+.separator {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  text-align: center;
+
+  &::before {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ff9933;
+    margin-right: 0.25em;
+  }
+
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ff9933;
+    margin-left: 0.25em;
+  }
+}
