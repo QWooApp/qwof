@@ -1,5 +1,5 @@
 import configureEndpoint from "./host";
-import { Credentials } from "../store/auth/types";
+import { Credentials, LoginPayload } from "../store/auth/types";
 
 const BASE_URL = configureEndpoint("user");
 
@@ -22,5 +22,17 @@ export const getToken = async (
   });
 
   if (data.status !== 200) throw new Error("Invalid credentials.");
+  return await data.json();
+};
+
+export const getAuthTokenViaGoogle = async (
+  tokenId: string
+): Promise<LoginPayload> => {
+  const formData = new FormData();
+  formData.set("token", tokenId);
+  const data = await fetch(`${BASE_URL}/google/`, {
+    body: formData,
+    method: "post",
+  });
   return await data.json();
 };

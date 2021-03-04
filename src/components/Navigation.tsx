@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 
 import AppBar from "@material-ui/core/AppBar";
@@ -8,9 +10,19 @@ import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import useStyles from "./styles/Navigation";
+import { logOut } from "../store/auth/actions";
+import { useAuthenticated } from "../store/auth/hooks";
 
 function Navigation() {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const isAuthenticated = useAuthenticated();
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    history.push("/login");
+  };
 
   return (
     <div>
@@ -27,13 +39,23 @@ function Navigation() {
               <b>qwoo</b>
             </Typography>
             <div className={classes.flexGrow} />
-            <Button
-              to="/login"
-              component={RouterLink}
-              className={classes.navLink}
-            >
-              Login
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <Button onClick={handleLogout} className={classes.navLink}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  to="/login"
+                  component={RouterLink}
+                  className={classes.navLink}
+                >
+                  Login
+                </Button>
+              </>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
