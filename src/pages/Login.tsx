@@ -24,8 +24,11 @@ function Login() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h4" color="primary">
+          <Typography paragraph component="h1" variant="h4" color="primary">
             Sign In
+          </Typography>
+          <Typography>
+            Welcome to QWoo, a platform for the people - by the people.
           </Typography>
         </div>
         <Container maxWidth="sm">
