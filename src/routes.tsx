@@ -8,7 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 const BaseRouter = () => (
   <Switch>
-    <Route exact path="/" component={Home} />
+    <ProtectedRoute exact path="/" component={Home} />
     <Route path="/login" component={Login} />
     <ProtectedRoute path="/settings" component={Settings} />
     <Route path="*" component={NotFound} />

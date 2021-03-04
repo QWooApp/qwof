@@ -15,7 +15,7 @@ function Navigation() {
   return (
     <div>
       <CssBaseline />
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Container>
           <Toolbar>
             <Typography
