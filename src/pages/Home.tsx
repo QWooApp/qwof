@@ -1,3 +1,5 @@
+import "../styles/app.scss";
+
 import Typography from "@material-ui/core/Typography";
 
 function Home() {
