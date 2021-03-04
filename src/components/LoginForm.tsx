@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState, FormEvent } from "react";
+import { useHistory, Link as RouterLink } from "react-router-dom";
 
 import Box from "@material-ui/core/Box";
 import Link from "@material-ui/core/Link";
@@ -7,23 +8,14 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import { getToken } from "../api/auth";
-import useStyles from "./styles/LoginForm";
-import { useHistory } from "react-router-dom";
+import useStyles from "./styles/AuthForm";
 import { logIn } from "../store/auth/actions";
+import AuthFormFooter from "./AuthFormFooter";
 import { Credentials } from "../store/auth/types";
-
-function LoginFooter() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      Made with ❤️ by mentix02
-    </Typography>
-  );
-}
 
 function LoginForm() {
   const classes = useStyles();
@@ -108,18 +100,18 @@ function LoginForm() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
+              <Link component={RouterLink} to="/register" variant="body2">
+                {"Don't have an account? Sign Up today."}
               </Link>
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                Forgot password?
               </Link>
             </Grid>
           </Grid>
           <Box mt={5}>
-            <LoginFooter />
+            <AuthFormFooter />
           </Box>
         </>
       )}

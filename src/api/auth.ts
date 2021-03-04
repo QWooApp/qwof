@@ -1,5 +1,5 @@
 import configureEndpoint from "./host";
-import { Credentials, LoginPayload } from "../store/auth/types";
+import { Credentials, LoginPayload, UserData } from "../store/auth/types";
 
 const BASE_URL = configureEndpoint("user");
 
@@ -24,6 +24,8 @@ export const getToken = async (
   if (data.status !== 200) throw new Error("Invalid credentials.");
   return await data.json();
 };
+
+export const registerUser = async (userData: UserData) => {};
 
 export const getAuthTokenViaGoogle = async (
   tokenId: string

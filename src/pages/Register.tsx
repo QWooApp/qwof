@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import AuthPage from "../components/AuthPage";
-import LoginForm from "../components/LoginForm";
+import RegisterForm from "../components/RegisterForm";
 import { useAuthenticated } from "../store/auth/hooks";
 
 function Register() {
@@ -19,9 +19,9 @@ function Register() {
     <AuthPage
       image={Balloon}
       title="Sign Up"
-      AuthForm={<LoginForm />}
-      authProviderBtnText="Sign up with"
-      description="It's free and always will be - unlike some!"
+      btnText="Sign up"
+      AuthForm={<RegisterForm />}
+      description="It's open and always will be."
     />
   );
 }

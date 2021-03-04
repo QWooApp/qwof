@@ -19,9 +19,9 @@ function Login() {
     <AuthPage
       image={Flag}
       title="Log In"
+      btnText="Sign in"
       AuthForm={<LoginForm />}
-      authProviderBtnText="Sign in with"
-      description="A platform for the people - by the people"
+      description="A platform for the people - by the people."
     />
   );
 }

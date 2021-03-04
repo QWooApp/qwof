@@ -59,7 +59,7 @@ function GoogleButton({ text = "Sign in with" }: GoogleButtonProps) {
         </svg>
       </div>
       <span style={{ fontWeight: 500, padding: "10px 10px 10px 0px" }}>
-        {text} Google
+        {text} with Google
       </span>
     </button>
   );

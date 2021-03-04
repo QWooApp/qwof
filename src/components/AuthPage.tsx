@@ -16,23 +16,23 @@ import GoogleButton from "../components/GoogleButton";
 interface AuthPageProps {
   title: string;
   image: string;
+  btnText: string;
   description: string;
-  authProviderBtnText: string;
   AuthForm: NonNullable<ReactNode>;
 }
 
 function AuthPage(props: AuthPageProps) {
   const classes = useStyles();
-  const { title, image, description, AuthForm } = props;
+  const { title, image, btnText, AuthForm, description } = props;
 
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid
         item
-        xs={false}
         sm={4}
         md={7}
+        xs={false}
         className={classes.image}
         style={{ backgroundImage: `url(${image})` }}
       />
@@ -47,7 +47,7 @@ function AuthPage(props: AuthPageProps) {
           <Typography>{description}</Typography>
         </div>
         <Container maxWidth="sm">
-          <GoogleButton />
+          <GoogleButton text={btnText} />
           <div className="separator">OR</div>
           {AuthForm}
         </Container>

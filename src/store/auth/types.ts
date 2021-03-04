@@ -6,6 +6,14 @@ export interface Credentials {
   password: string;
 }
 
+export interface UserData {
+  email: string;
+  username: string;
+  password: string;
+  last_name: string;
+  first_name: string;
+}
+
 export interface AuthState {
   token?: string;
   username?: string;
