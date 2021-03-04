@@ -1,8 +1,8 @@
 import { LOGIN, LOGOUT, LoginAction, LogoutAction } from "./types";
 
-export const logIn = (token: string, name: string): LoginAction => ({
+export const logIn = (token: string, username: string): LoginAction => ({
   type: LOGIN,
-  payload: { token, name },
+  payload: { token, username },
 });
 
 export const logOut = (): LogoutAction => ({

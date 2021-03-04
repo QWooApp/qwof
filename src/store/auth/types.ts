@@ -2,19 +2,19 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 
 export interface Credentials {
-  email: string;
+  username: string;
   password: string;
 }
 
 export interface AuthState {
-  name?: string;
   token?: string;
+  username?: string;
   isAuthenticated: boolean;
 }
 
 export interface LoginPayload {
   token: string;
-  name: string;
+  username: string;
 }
 
 export interface LoginAction {

@@ -9,8 +9,8 @@ interface AuthStateType {
 export const useToken = (): string | undefined =>
   useSelector(({ auth }: AuthStateType) => auth.token);
 
-export const useName = (): string | undefined =>
-  useSelector(({ auth }: AuthStateType) => auth.name);
+export const useUsername = (): string | undefined =>
+  useSelector(({ auth }: AuthStateType) => auth.username);
 
 export const useAuthenticated = (): boolean =>
   useSelector(({ auth }: AuthStateType) => auth.isAuthenticated);
