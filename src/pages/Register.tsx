@@ -1,4 +1,4 @@
-import Flag from "../images/backgrounds/Flag.jpg";
+import Balloon from "../images/backgrounds/Balloon.jpg";
 
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -7,7 +7,7 @@ import AuthPage from "../components/AuthPage";
 import LoginForm from "../components/LoginForm";
 import { useAuthenticated } from "../store/auth/hooks";
 
-function Login() {
+function Register() {
   const history = useHistory();
   const isAuthenticated = useAuthenticated();
 
@@ -17,13 +17,13 @@ function Login() {
 
   return (
     <AuthPage
-      image={Flag}
-      title="Log In"
+      image={Balloon}
+      title="Sign Up"
       AuthForm={<LoginForm />}
-      authProviderBtnText="Sign in with"
-      description="A platform for the people - by the people"
+      authProviderBtnText="Sign up with"
+      description="It's free and always will be - unlike some!"
     />
   );
 }
 
-export default Login;
+export default Register;

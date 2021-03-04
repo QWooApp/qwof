@@ -1,4 +1,3 @@
-import Flag from "../../images/backgrounds/Flag.jpg";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) =>
@@ -8,7 +7,6 @@ const useStyles = makeStyles((theme) =>
     },
     image: {
       backgroundRepeat: "no-repeat",
-      backgroundImage: `url(${Flag})`,
       backgroundColor:
         theme.palette.type === "light"
           ? theme.palette.grey[50]

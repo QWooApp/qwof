@@ -3,13 +3,17 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import GoogleLogin from "react-google-login";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import { logIn } from "../store/auth/actions";
-import { getAuthTokenViaGoogle } from "../api/auth";
-import { LinearProgress } from "@material-ui/core";
 import useStyles from "./styles/GoogleButton";
+import { getAuthTokenViaGoogle } from "../api/auth";
 
-function GoogleButton() {
+interface GoogleButtonProps {
+  text?: string;
+}
+
+function GoogleButton({ text = "Sign in with" }: GoogleButtonProps) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -55,7 +59,7 @@ function GoogleButton() {
         </svg>
       </div>
       <span style={{ fontWeight: 500, padding: "10px 10px 10px 0px" }}>
-        Sign in with Google
+        {text} Google
       </span>
     </button>
   );
