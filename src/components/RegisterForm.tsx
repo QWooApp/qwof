@@ -17,7 +17,6 @@ import { UserData } from "../store/auth/types";
 function RegisterForm() {
   const classes = useStyles();
 
-  const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserData>({
     email: "",
