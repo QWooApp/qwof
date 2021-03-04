@@ -1,5 +1,10 @@
 # qwof
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/QWooApp/qwof/Node)
+![GitHub](https://img.shields.io/github/license/QWooApp/qwof)
+![GitHub top language](https://img.shields.io/github/languages/top/QWooApp/qwof)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier?style=flat)
+
 Front-end source code for the QWoo web app.
 
 ## Getting Started
