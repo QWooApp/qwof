@@ -1,27 +1,16 @@
-import React from "react";
+import "../styles/separator.scss";
 
-import Box from "@material-ui/core/Box";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import TextField from "@material-ui/core/TextField";
+import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import useStyles from "./styles/Login";
-
-function LoginFooter() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      Made with ❤️ by mentix02
-    </Typography>
-  );
-}
+import LoginForm from "../components/LoginForm";
+import GoogleButton from "../components/GoogleButton";
 
 function Login() {
   const classes = useStyles();
@@ -38,59 +27,12 @@ function Login() {
           <Typography component="h1" variant="h4" color="primary">
             Sign In
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              fullWidth
-              type="submit"
-              color="primary"
-              variant="contained"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <LoginFooter />
-            </Box>
-          </form>
         </div>
+        <Container maxWidth="sm">
+          <GoogleButton />
+          <div className="separator">OR</div>
+          <LoginForm />
+        </Container>
       </Grid>
     </Grid>
   );
