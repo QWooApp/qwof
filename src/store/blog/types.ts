@@ -11,6 +11,7 @@ export interface Post {
   id: string;
   body: string;
   user: PostUser;
+  timestamp: string;
 }
 
 export interface BlogState {

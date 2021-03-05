@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useState, FormEvent, MouseEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useHistory, Link as RouterLink } from "react-router-dom";
 
 import Box from "@material-ui/core/Box";
@@ -9,12 +9,8 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
-import InputLabel from "@material-ui/core/InputLabel";
 import Visibility from "@material-ui/icons/Visibility";
-import FormControl from "@material-ui/core/FormControl";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -30,8 +26,8 @@ function LoginForm() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [credentials, setCredentials] = useState<Credentials>({
     username: "",
@@ -39,8 +35,6 @@ function LoginForm() {
   });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = (e: MouseEvent<HTMLButtonElement>) =>
-    e.preventDefault();
 
   const handleLoginForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,8 +42,9 @@ function LoginForm() {
     try {
       const tokenResponse = await getToken(credentials);
       dispatch(logIn(tokenResponse.access, credentials.username));
-      setLoading(false);
       history.push("/");
+      setLoading(false);
+      return;
     } catch (e) {
       setError(e.message);
       setLoading(false);
@@ -75,31 +70,32 @@ function LoginForm() {
           setCredentials({ ...credentials, username: e.target.value })
         }
       />
-      <FormControl required fullWidth variant="outlined" margin="normal">
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <OutlinedInput
-          id="password"
-          labelWidth={85}
-          error={error.length !== 0}
-          value={credentials.password}
-          type={showPassword ? "text" : "password"}
-          onChange={(e) =>
-            setCredentials({ ...credentials, password: e.target.value })
-          }
-          endAdornment={
+      <TextField
+        required
+        fullWidth
+        id="password"
+        margin="normal"
+        label="Password"
+        variant="outlined"
+        helperText={error}
+        type={showPassword ? "text" : "password"}
+        error={error.length !== 0}
+        onChange={(e) =>
+          setCredentials({ ...credentials, password: e.target.value })
+        }
+        InputProps={{
+          endAdornment: (
             <InputAdornment position="end">
               <IconButton
                 onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
                 aria-label="toggle password visibility"
               >
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </IconButton>
             </InputAdornment>
-          }
-        />
-        <FormHelperText error={error.length !== 0}>{error}</FormHelperText>
-      </FormControl>
+          ),
+        }}
+      />
       <FormControlLabel
         control={<Checkbox value="remember" color="primary" />}
         label="Remember me"
