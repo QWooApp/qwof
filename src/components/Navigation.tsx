@@ -54,6 +54,13 @@ function Navigation() {
                 >
                   Login
                 </Button>
+                <Button
+                  to="/register"
+                  component={RouterLink}
+                  className={classes.navLink}
+                >
+                  Register
+                </Button>
               </>
             )}
           </Toolbar>
