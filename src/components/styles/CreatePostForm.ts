@@ -3,7 +3,12 @@ import { createStyles, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) =>
   createStyles({
     form: {
-      padding: theme.spacing(2, 2, 1),
+      [theme.breakpoints.down("sm")]: {
+        padding: theme.spacing(0),
+      },
+      [theme.breakpoints.up("sm")]: {
+        padding: theme.spacing(2, 2, 1),
+      },
     },
     img: {
       display: "block",

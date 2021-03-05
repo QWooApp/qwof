@@ -22,7 +22,11 @@ interface ImagesWithUrls {
   files?: FileList;
 }
 
-function CreatePostForm() {
+interface CreatePostFormProps {
+  elevation?: number;
+}
+
+function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
   const classes = useStyles();
 
   const [body, setBody] = useState<string>("");
@@ -66,7 +70,7 @@ function CreatePostForm() {
 
   return (
     <>
-      <Paper elevation={5} className={classes.form}>
+      <Paper elevation={elevation} className={classes.form}>
         <form onSubmit={handleCreateFormSubmit}>
           <TextField
             rows={3}
@@ -86,8 +90,8 @@ function CreatePostForm() {
             }
           />
         </form>
-        <Grid container spacing={2}>
-          <Grid item md={3}>
+        <Grid container>
+          <Grid item xs={4} md={3}>
             <IconButton title="Images" component="label">
               <Image />
               <input
@@ -105,7 +109,7 @@ function CreatePostForm() {
               <EmojiEmotionsIcon />
             </IconButton>
           </Grid>
-          <Grid item md={9}>
+          <Grid item xs={7} md={9}>
             <Typography align="right">
               <Button className="white" color="primary" variant="contained">
                 Post
