@@ -18,8 +18,8 @@ function Login() {
   return (
     <AuthPage
       image={Flag}
-      title="Log In"
-      btnText="Sign in"
+      title="Sign In"
+      btnText="Log in"
       AuthForm={<LoginForm />}
       description="A platform for the people - by the people."
     />
