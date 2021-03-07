@@ -1,4 +1,5 @@
-import { lazy, useState, Suspense, ReactNode } from "react";
+import { lazy, Suspense, ReactNode } from "react";
+import { useDispatch } from "react-redux";
 
 import Fab from "@material-ui/core/Fab";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,6 +8,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 
 import useStyles from "./styles/Layout";
 import CreatePostForm from "./CreatePostForm";
+import { useDialogOpen } from "../store/blog/hooks";
+import { toggleDialog } from "../store/blog/actions";
 
 const Navigation = lazy(() => import("./Navigation"));
 
@@ -16,15 +19,15 @@ interface LayoutProps {
 
 function Layout({ children }: LayoutProps) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const dialogOpen = useDialogOpen();
 
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleDialogOpenClick = () => {
+    dispatch(toggleDialog(true));
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleDialogCloseClick = () => {
+    dispatch(toggleDialog(false));
   };
 
   return (
@@ -33,13 +36,17 @@ function Layout({ children }: LayoutProps) {
         <Navigation />
       </Suspense>
       <main>{children}</main>
-      <Fab color="primary" onClick={handleClickOpen} className={classes.fab}>
+      <Fab
+        color="primary"
+        onClick={handleDialogOpenClick}
+        className={classes.fab}
+      >
         <PostAdd />
       </Fab>
       <Dialog
         fullWidth
-        open={open}
-        onClose={handleClose}
+        open={dialogOpen}
+        onClose={handleDialogCloseClick}
         aria-labelledby="form-dialog-title"
       >
         <DialogContent style={{ marginTop: "0" }}>

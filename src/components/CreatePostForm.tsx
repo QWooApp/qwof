@@ -1,5 +1,6 @@
 import "emoji-mart/css/emoji-mart.css";
 
+import { useDispatch } from "react-redux";
 import { useRef, useState, useEffect, FormEvent, ChangeEvent } from "react";
 
 import Grid from "@material-ui/core/Grid";
@@ -12,8 +13,11 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
+import { createPost } from "../api/blog";
 import FormImageList from "./FormImageList";
+import { useToken } from "../store/auth/hooks";
 import useStyles from "./styles/CreatePostForm";
+import { prependPost } from "../store/blog/actions";
 
 const UPPER_LIMIT = 300;
 
@@ -29,6 +33,9 @@ interface CreatePostFormProps {
 function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
   const classes = useStyles();
 
+  const token = useToken();
+
+  const dispatch = useDispatch();
   const [body, setBody] = useState<string>("");
   const [error, setError] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,10 +69,21 @@ function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
     if (e.target.files) setImages({ ...images, files: e.target.files });
   };
 
+  const handlePostCreate = () => {
+    createPost(token!, body)
+      .then((post) => {
+        post.heart_count = 0;
+        post.reply_count = 0;
+        post.repost_count = 0;
+        dispatch(prependPost(post));
+      })
+      .catch();
+    setBody("");
+  };
+
   const handleCreateFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(body);
-    setBody("");
+    handlePostCreate();
   };
 
   return (
@@ -111,7 +129,12 @@ function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
           </Grid>
           <Grid item xs={7} md={9}>
             <Typography align="right">
-              <Button className="white" color="primary" variant="contained">
+              <Button
+                color="primary"
+                className="white"
+                variant="contained"
+                onClick={() => handlePostCreate()}
+              >
                 Post
               </Button>
             </Typography>

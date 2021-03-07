@@ -36,19 +36,20 @@ function LoginForm() {
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
-  const handleLoginForm = async (e: FormEvent<HTMLFormElement>) => {
+  const handleLoginForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      const tokenResponse = await getToken(credentials);
-      dispatch(logIn(tokenResponse.access, credentials.username));
-      history.push("/");
-      setLoading(false);
-      return;
-    } catch (e) {
-      setError(e.message);
-      setLoading(false);
-    }
+    getToken(credentials)
+      .then((tokenResponse) => {
+        dispatch(logIn(tokenResponse.access, credentials.username));
+        setLoading(false);
+        setError("");
+        history.push("/");
+      })
+      .catch((e) => {
+        setLoading(false);
+        setError(e.message);
+      });
   };
 
   return (
