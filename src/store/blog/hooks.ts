@@ -8,3 +8,6 @@ interface BlogStateType {
 
 export const usePosts = (): Post[] =>
   useSelector(({ blog }: BlogStateType) => blog.posts);
+
+export const useDialogOpen = (): boolean =>
+  useSelector(({ blog }: BlogStateType) => blog.dialog);
