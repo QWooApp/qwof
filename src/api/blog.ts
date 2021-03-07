@@ -17,12 +17,19 @@ export const getPosts = async (token: string): Promise<Post[]> => {
 
 export const createPost = async (
   token: string,
-  body: string
+  body: string,
+  reply_to_id?: string,
+  repost_of_id?: string
 ): Promise<Post> => {
   const formData = new FormData();
   formData.set("body", body);
+
+  if (reply_to_id) formData.set("reply_to_id", reply_to_id);
+  if (repost_of_id) formData.set("repost_of_id", repost_of_id);
+
   try {
     const data = await fetch(`${BASE_URL}/create/`, {
+      body: formData,
       method: "post",
       headers: { Authorization: `Bearer ${token}` },
     });
