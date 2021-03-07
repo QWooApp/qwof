@@ -1,5 +1,6 @@
 export const SET_POSTS = "SET_POSTS";
 export const HEART_POST = "HEART_POST";
+export const DELETE_POST = "DELETE_POST";
 export const UNHEART_POST = "UNHEART_POST";
 export const PREPEND_POST = "PREPEND_POST";
 export const TOGGLE_POST_FORM_DIALOG = "TOGGLE_POST_FORM_DIALOG";
@@ -41,6 +42,11 @@ export interface UnHeartPostAction {
   type: typeof UNHEART_POST;
 }
 
+export interface DeletePostAction {
+  payload: number;
+  type: typeof DELETE_POST;
+}
+
 export interface PrependPostAction {
   payload: Post;
   type: typeof PREPEND_POST;
@@ -54,6 +60,7 @@ export interface TogglePostFormDialogAction {
 export type BlogActionType =
   | SetPostsAction
   | HeartPostAction
+  | DeletePostAction
   | UnHeartPostAction
   | PrependPostAction
   | TogglePostFormDialogAction;

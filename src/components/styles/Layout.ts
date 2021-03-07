@@ -2,6 +2,13 @@ import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    appBar: {
+      position: "relative",
+      marginBottom: theme.spacing(2),
+    },
+    main: {
+      marginBottom: theme.spacing(2),
+    },
     fab: {
       margin: 0,
       right: 20,
@@ -15,9 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       minHeight: "100vh",
-    },
-    main: {
-      marginBottom: theme.spacing(2),
     },
     footer: {
       padding: theme.spacing(2, 2),

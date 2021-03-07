@@ -23,9 +23,15 @@ import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 
 import { Post } from "../store/blog/types";
 import useStyles from "./styles/PostListItem";
+import { createPost, deletePost } from "../api/blog";
 import { createHeart, deleteHeart } from "../api/heart";
-import { heartPost, unheartPost } from "../store/blog/actions";
 import { useToken, useUsername, useAuthenticated } from "../store/auth/hooks";
+import {
+  heartPost,
+  unheartPost,
+  deletePost as deletePostAction,
+  prependPost,
+} from "../store/blog/actions";
 
 interface PostListItemProps {
   post: Post;
@@ -44,6 +50,16 @@ function PostListItem({ post, idx }: PostListItemProps) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDeleteClick = () => {
+    deletePost(token!, post.id).then(() => dispatch(deletePostAction(idx)));
+  };
+
+  const handleRepostClick = () => {
+    createPost(token!, "", { repost_of_id: post.id }).then((post) =>
+      dispatch(prependPost(post))
+    );
   };
 
   const handleHeartClick = () => {
@@ -85,7 +101,12 @@ function PostListItem({ post, idx }: PostListItemProps) {
                 Report
               </MenuItem>
               {isAuthenticated && post.user.username === username && (
-                <MenuItem onClick={handleClose}>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    handleDeleteClick();
+                  }}
+                >
                   <ListItemIcon>
                     <Delete />
                   </ListItemIcon>
@@ -122,7 +143,11 @@ function PostListItem({ post, idx }: PostListItemProps) {
         >
           {post.heart_count}
         </Button>
-        <Button color="secondary" className={classes.plr1}>
+        <Button
+          color="secondary"
+          className={classes.plr1}
+          onClick={handleRepostClick}
+        >
           <RepeatIcon />
           {post.repost_count}
         </Button>

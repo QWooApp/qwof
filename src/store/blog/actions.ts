@@ -2,12 +2,14 @@ import {
   Post,
   SET_POSTS,
   HEART_POST,
+  DELETE_POST,
   PREPEND_POST,
   UNHEART_POST,
   SetPostsAction,
   HeartPostAction,
   PrependPostAction,
   UnHeartPostAction,
+  DeletePostAction,
   TOGGLE_POST_FORM_DIALOG,
   TogglePostFormDialogAction,
 } from "./types";
@@ -15,6 +17,11 @@ import {
 export const setPosts = (posts: Post[]): SetPostsAction => ({
   payload: posts,
   type: SET_POSTS,
+});
+
+export const deletePost = (index: number): DeletePostAction => ({
+  payload: index,
+  type: DELETE_POST,
 });
 
 export const heartPost = (index: number): HeartPostAction => ({

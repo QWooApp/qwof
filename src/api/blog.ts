@@ -15,22 +15,39 @@ export const getPosts = async (token: string): Promise<Post[]> => {
   }
 };
 
+export const deletePost = async (token: string, post_id: string) => {
+  await fetch(`${BASE_URL}/delete/${post_id}/`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+interface createPostParams {
+  reply_to_id?: string;
+  repost_of_id?: string;
+}
+
 export const createPost = async (
   token: string,
   body: string,
-  reply_to_id?: string,
-  repost_of_id?: string
+  id_params?: createPostParams
 ): Promise<Post> => {
   const formData = new FormData();
   formData.set("body", body);
 
-  if (reply_to_id) formData.set("reply_to_id", reply_to_id);
-  if (repost_of_id) formData.set("repost_of_id", repost_of_id);
+  if (id_params) {
+    const { reply_to_id, repost_of_id } = id_params;
+
+    if (reply_to_id) formData.set("reply_to_id", reply_to_id);
+    if (repost_of_id) formData.set("repost_of_id", repost_of_id);
+  }
 
   try {
     const data = await fetch(`${BASE_URL}/create/`, {
       body: formData,
-      method: "post",
+      method: "POST",
       headers: { Authorization: `Bearer ${token}` },
     });
 
