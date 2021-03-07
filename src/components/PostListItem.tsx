@@ -52,10 +52,6 @@ function PostListItem({ post }: PostListItemProps) {
   const isAuthenticated = useAuthenticated();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const handleDeleteClick = () => {
     deletePost(token!, post.id).then(() => dispatch(deletePostAction(post.id)));
   };
@@ -72,6 +68,10 @@ function PostListItem({ post }: PostListItemProps) {
     if (post.is_hearted)
       deleteHeart(token!, post.id).then(() => dispatch(unheartPost(post.id)));
     else createHeart(token!, post.id).then(() => dispatch(heartPost(post.id)));
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   const handleMenuClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -99,10 +99,10 @@ function PostListItem({ post }: PostListItemProps) {
                 keepMounted
                 id="simple-menu"
                 anchorEl={anchorEl}
-                onClose={handleClose}
+                onClose={handleMenuClose}
                 open={Boolean(anchorEl)}
               >
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleMenuClose}>
                   <ListItemIcon>
                     <Report />
                   </ListItemIcon>
@@ -111,7 +111,7 @@ function PostListItem({ post }: PostListItemProps) {
                 {isAuthenticated && post.user.username === username && (
                   <MenuItem
                     onClick={() => {
-                      handleClose();
+                      handleMenuClose();
                       handleDeleteClick();
                     }}
                   >
