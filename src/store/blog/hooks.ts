@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { BlogState, Post } from "./types";
+import { Post, BlogState, OpenDialogWithPostPayload } from "./types";
 
 interface BlogStateType {
   blog: BlogState;
@@ -11,3 +11,6 @@ export const usePosts = (): Post[] =>
 
 export const useDialogOpen = (): boolean =>
   useSelector(({ blog }: BlogStateType) => blog.dialog);
+
+export const useDialogPost = (): OpenDialogWithPostPayload | undefined =>
+  useSelector(({ blog }: BlogStateType) => blog.dialogPost);

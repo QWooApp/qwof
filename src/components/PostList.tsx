@@ -7,8 +7,8 @@ function PostList() {
   return (
     <div>
       <br />
-      {posts.map((post, idx) => (
-        <PostListItem idx={idx} post={post} key={post.id} />
+      {posts.map((post) => (
+        <PostListItem post={post} key={post.id} />
       ))}
     </div>
   );

@@ -1,13 +1,13 @@
 import "emoji-mart/css/emoji-mart.css";
 
 import { useDispatch } from "react-redux";
-import { useRef, useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Image from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
-import { Picker, EmojiData } from "emoji-mart";
+import { EmojiData, Picker } from "emoji-mart";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -18,6 +18,12 @@ import FormImageList from "./FormImageList";
 import { useToken } from "../store/auth/hooks";
 import useStyles from "./styles/CreatePostForm";
 import { prependPost } from "../store/blog/actions";
+import { useDialogPost } from "../store/blog/hooks";
+import {
+  Post,
+  POST_DIALOG_REPLY,
+  POST_DIALOG_REPOST,
+} from "../store/blog/types";
 
 const UPPER_LIMIT = 300;
 
@@ -34,6 +40,7 @@ function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
   const classes = useStyles();
 
   const token = useToken();
+  const dialogState = useDialogPost();
 
   const dispatch = useDispatch();
   const [body, setBody] = useState<string>("");
@@ -69,15 +76,31 @@ function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
     if (e.target.files) setImages({ ...images, files: e.target.files });
   };
 
+  const handlePostCreation = (post: Post) => {
+    post.heart_count = 0;
+    post.reply_count = 0;
+    post.repost_count = 0;
+    dispatch(prependPost(post));
+  };
+
   const handlePostCreate = () => {
-    createPost(token!, body)
-      .then((post) => {
-        post.heart_count = 0;
-        post.reply_count = 0;
-        post.repost_count = 0;
-        dispatch(prependPost(post));
-      })
-      .catch();
+    const empty = body.replace(/\s+/g, " ").trim().length === 0;
+    if (empty) return;
+    if (dialogState) {
+      const dialogPost = dialogState.post;
+      switch (dialogState.type) {
+        case POST_DIALOG_REPLY:
+          createPost(token!, body, { reply_to_id: dialogPost.id }).then(
+            handlePostCreation
+          );
+          break;
+        case POST_DIALOG_REPOST:
+          createPost(token!, body, { repost_of_id: dialogPost.id }).then(
+            handlePostCreation
+          );
+          break;
+      }
+    } else createPost(token!, body).then(handlePostCreation);
     setBody("");
   };
 
@@ -134,6 +157,7 @@ function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
                 className="white"
                 variant="contained"
                 onClick={() => handlePostCreate()}
+                disabled={body.replace(/\s+/g, " ").trim().length === 0}
               >
                 Post
               </Button>

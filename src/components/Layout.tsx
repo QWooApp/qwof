@@ -23,10 +23,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import { TransitionProps } from "@material-ui/core/transitions";
 
 import useStyles from "./styles/Layout";
+import PostListItem from "./PostListItem";
 import CreatePostForm from "./CreatePostForm";
-import { useDialogOpen } from "../store/blog/hooks";
 import { toggleDialog } from "../store/blog/actions";
 import { useAuthenticated } from "../store/auth/hooks";
+import { POST_DIALOG_REPLY } from "../store/blog/types";
+import { useDialogOpen, useDialogPost, usePosts } from "../store/blog/hooks";
+import Container from "@material-ui/core/Container";
 
 const Navigation = lazy(() => import("./Navigation"));
 
@@ -44,8 +47,10 @@ const Transition = forwardRef(function Transition(
 function Layout({ children }: LayoutProps) {
   const classes = useStyles();
 
+  const posts = usePosts();
   const dispatch = useDispatch();
   const dialogOpen = useDialogOpen();
+  const dialogState = useDialogPost();
   const isAuthenticated = useAuthenticated();
 
   const handleDialogOpenClick = () => {
@@ -89,12 +94,19 @@ function Layout({ children }: LayoutProps) {
                   <CloseIcon />
                 </IconButton>
                 <Typography className="white" variant="h5">
-                  Create Tweet
+                  {dialogState
+                    ? dialogState.type === POST_DIALOG_REPLY
+                      ? "Reply to Post"
+                      : "Repost"
+                    : "Create Post"}
                 </Typography>
               </Toolbar>
             </AppBar>
             <DialogContent>
-              <CreatePostForm elevation={0} />
+              <Container>
+                {dialogState && <PostListItem post={dialogState.post} />}
+                <CreatePostForm elevation={0} />
+              </Container>
             </DialogContent>
             <DialogActions>
               <Button

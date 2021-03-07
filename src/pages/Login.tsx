@@ -1,9 +1,15 @@
 import Flag from "../images/backgrounds/Flag.jpg";
 
+import { useEffect } from "react";
+
 import AuthPage from "../components/AuthPage";
 import LoginForm from "../components/LoginForm";
 
 function Login() {
+  useEffect(() => {
+    document.title = "Login / QWoo";
+  }, []);
+
   return (
     <AuthPage
       image={Flag}

@@ -7,11 +7,14 @@ import {
   UNHEART_POST,
   SetPostsAction,
   HeartPostAction,
+  DeletePostAction,
   PrependPostAction,
   UnHeartPostAction,
-  DeletePostAction,
+  OPEN_DIALOG_WITH_POST,
   TOGGLE_POST_FORM_DIALOG,
+  OpenDialogWithPostAction,
   TogglePostFormDialogAction,
+  DialogPostType,
 } from "./types";
 
 export const setPosts = (posts: Post[]): SetPostsAction => ({
@@ -19,18 +22,18 @@ export const setPosts = (posts: Post[]): SetPostsAction => ({
   type: SET_POSTS,
 });
 
-export const deletePost = (index: number): DeletePostAction => ({
-  payload: index,
+export const deletePost = (id: string): DeletePostAction => ({
+  payload: id,
   type: DELETE_POST,
 });
 
-export const heartPost = (index: number): HeartPostAction => ({
-  payload: index,
+export const heartPost = (id: string): HeartPostAction => ({
+  payload: id,
   type: HEART_POST,
 });
 
-export const unheartPost = (index: number): UnHeartPostAction => ({
-  payload: index,
+export const unheartPost = (id: string): UnHeartPostAction => ({
+  payload: id,
   type: UNHEART_POST,
 });
 
@@ -42,4 +45,15 @@ export const prependPost = (post: Post): PrependPostAction => ({
 export const toggleDialog = (state: boolean): TogglePostFormDialogAction => ({
   payload: state,
   type: TOGGLE_POST_FORM_DIALOG,
+});
+
+export const openDialogWithPost = (
+  post: Post,
+  type: DialogPostType
+): OpenDialogWithPostAction => ({
+  payload: {
+    post,
+    type,
+  },
+  type: OPEN_DIALOG_WITH_POST,
 });

@@ -6,6 +6,7 @@ import {
   UNHEART_POST,
   PREPEND_POST,
   BlogActionType,
+  OPEN_DIALOG_WITH_POST,
   TOGGLE_POST_FORM_DIALOG,
 } from "./types";
 
@@ -25,6 +26,13 @@ const blogReducer = (
         posts: [action.payload, ...state.posts],
       };
 
+    case OPEN_DIALOG_WITH_POST:
+      return {
+        ...state,
+        dialog: true,
+        dialogPost: action.payload,
+      };
+
     case SET_POSTS:
       return {
         dialog: false,
@@ -34,24 +42,31 @@ const blogReducer = (
     case DELETE_POST:
       return {
         dialog: false,
-        posts: state.posts.filter((_, idx) => idx !== action.payload),
+        posts: state.posts.filter((post) => post.id !== action.payload),
       };
 
     case HEART_POST:
       const updatedHeartPostArray = [...state.posts];
-      updatedHeartPostArray[action.payload].is_hearted = true;
-      updatedHeartPostArray[action.payload].heart_count += 1;
+      const heartPostIdx = state.posts.findIndex(
+        (post) => post.id === action.payload
+      );
+      updatedHeartPostArray[heartPostIdx].is_hearted = true;
+      updatedHeartPostArray[heartPostIdx].heart_count += 1;
       return { ...state, posts: updatedHeartPostArray };
 
     case UNHEART_POST:
       const updatedUnheartPostArray = [...state.posts];
-      updatedUnheartPostArray[action.payload].is_hearted = false;
-      updatedUnheartPostArray[action.payload].heart_count -= 1;
+      const unHeartPostIdx = state.posts.findIndex(
+        (post) => post.id === action.payload
+      );
+      updatedUnheartPostArray[unHeartPostIdx].is_hearted = false;
+      updatedUnheartPostArray[unHeartPostIdx].heart_count -= 1;
       return { ...state, posts: updatedUnheartPostArray };
 
     case TOGGLE_POST_FORM_DIALOG:
       return {
         ...state,
+        dialogPost: undefined,
         dialog: action.payload,
       };
 
