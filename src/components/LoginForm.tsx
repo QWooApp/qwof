@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState, FormEvent } from "react";
-import { useHistory, Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import Box from "@material-ui/core/Box";
 import Link from "@material-ui/core/Link";
@@ -23,7 +23,6 @@ import { Credentials } from "../store/auth/types";
 
 function LoginForm() {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -41,10 +40,9 @@ function LoginForm() {
     setLoading(true);
     getToken(credentials)
       .then((tokenResponse) => {
-        dispatch(logIn(tokenResponse.access, credentials.username));
         setLoading(false);
         setError("");
-        history.push("/");
+        dispatch(logIn(tokenResponse.access, credentials.username));
       })
       .catch((e) => {
         setLoading(false);

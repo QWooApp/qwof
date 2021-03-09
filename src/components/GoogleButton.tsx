@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 
 import GoogleLogin from "react-google-login";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -15,7 +14,6 @@ interface GoogleButtonProps {
 
 function GoogleButton({ text = "Sign in with" }: GoogleButtonProps) {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const [error, setError] = useState<string>("");
@@ -78,9 +76,8 @@ function GoogleButton({ text = "Sign in with" }: GoogleButtonProps) {
         setLoading(true);
         try {
           const data = await getAuthTokenViaGoogle(tokenId);
-          dispatch(logIn(data.token, data.username));
           setLoading(false);
-          history.push("/");
+          dispatch(logIn(data.token, data.username));
         } catch (e) {
           setLoading(false);
           setError(e.message);
