@@ -1,5 +1,5 @@
-import { usePosts } from "../store/blog/hooks";
 import PostListItem from "./PostListItem";
+import { usePosts } from "../store/blog/hooks";
 
 function PostList() {
   const posts = usePosts();
@@ -7,8 +7,8 @@ function PostList() {
   return (
     <div>
       <br />
-      {posts.map((post) => (
-        <PostListItem post={post} key={post.id} />
+      {posts.map((post, idx) => (
+        <PostListItem post={post} key={idx} />
       ))}
     </div>
   );

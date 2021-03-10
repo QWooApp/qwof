@@ -16,6 +16,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import PostAdd from "@material-ui/icons/PostAdd";
 import CloseIcon from "@material-ui/icons/Close";
+import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -28,8 +29,7 @@ import CreatePostForm from "./CreatePostForm";
 import { toggleDialog } from "../store/blog/actions";
 import { useAuthenticated } from "../store/auth/hooks";
 import { POST_DIALOG_REPLY } from "../store/blog/types";
-import { useDialogOpen, useDialogPost, usePosts } from "../store/blog/hooks";
-import Container from "@material-ui/core/Container";
+import { useDialogOpen, useDialogPost } from "../store/blog/hooks";
 
 const Navigation = lazy(() => import("./Navigation"));
 
@@ -47,7 +47,6 @@ const Transition = forwardRef(function Transition(
 function Layout({ children }: LayoutProps) {
   const classes = useStyles();
 
-  const posts = usePosts();
   const dispatch = useDispatch();
   const dialogOpen = useDialogOpen();
   const dialogState = useDialogPost();
@@ -104,7 +103,9 @@ function Layout({ children }: LayoutProps) {
             </AppBar>
             <DialogContent>
               <Container>
-                {dialogState && <PostListItem post={dialogState.post} />}
+                {dialogState && (
+                  <PostListItem noAction post={dialogState.post} />
+                )}
                 <CreatePostForm elevation={0} />
               </Container>
             </DialogContent>

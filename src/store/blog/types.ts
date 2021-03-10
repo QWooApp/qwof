@@ -14,17 +14,6 @@ export interface PostUser {
   avatar: string | null;
 }
 
-interface RelatedSubPost {
-  id: string;
-  user: PostUser;
-}
-
-interface RelatedSubRepost extends RelatedSubPost {
-  body: string;
-}
-
-interface RelatedSubPostReply extends RelatedSubPost {}
-
 export interface Post {
   id: string;
   body: string;
@@ -36,8 +25,9 @@ export interface Post {
   reply_count: number;
   is_hearted?: boolean;
   repost_count: number;
-  repost_of?: RelatedSubRepost | null;
-  reply_to?: RelatedSubPostReply | null;
+  reply_to?: Post | null;
+  repost_of?: Post | null;
+  is_only_repost: boolean;
 }
 
 export interface BlogState {

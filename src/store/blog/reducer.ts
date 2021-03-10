@@ -47,20 +47,24 @@ const blogReducer = (
 
     case HEART_POST:
       const updatedHeartPostArray = [...state.posts];
-      const heartPostIdx = state.posts.findIndex(
-        (post) => post.id === action.payload
-      );
-      updatedHeartPostArray[heartPostIdx].is_hearted = true;
-      updatedHeartPostArray[heartPostIdx].heart_count += 1;
+
+      updatedHeartPostArray.forEach((post) => {
+        if (post.id === action.payload) {
+          post.heart_count += 1;
+          post.is_hearted = true;
+        }
+      });
+
       return { ...state, posts: updatedHeartPostArray };
 
     case UNHEART_POST:
       const updatedUnheartPostArray = [...state.posts];
-      const unHeartPostIdx = state.posts.findIndex(
-        (post) => post.id === action.payload
-      );
-      updatedUnheartPostArray[unHeartPostIdx].is_hearted = false;
-      updatedUnheartPostArray[unHeartPostIdx].heart_count -= 1;
+      updatedUnheartPostArray.forEach((post) => {
+        if (post.id === action.payload) {
+          post.heart_count -= 1;
+          post.is_hearted = false;
+        }
+      });
       return { ...state, posts: updatedUnheartPostArray };
 
     case TOGGLE_POST_FORM_DIALOG:

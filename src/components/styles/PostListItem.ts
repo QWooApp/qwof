@@ -2,8 +2,8 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    mb1: {
-      marginBottom: theme.spacing(1),
+    mt2: {
+      marginTop: theme.spacing(2),
     },
     p0: {
       paddingTop: "0",

@@ -7,10 +7,10 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Image from "@material-ui/icons/Image";
 import Button from "@material-ui/core/Button";
-import { EmojiData, Picker } from "emoji-mart";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
+import { EmojiData, Picker } from "emoji-mart/dist-es";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
 import { createPost } from "../api/blog";
@@ -173,6 +173,7 @@ function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
           autoFocus={true}
           onSelect={addEmoji}
           showPreview={false}
+          emojiTooltip={true}
           showSkinTones={false}
         />
       )}

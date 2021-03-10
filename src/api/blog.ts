@@ -4,11 +4,20 @@ import { Post } from "../store/blog/types";
 
 const BASE_URL = configureEndpoint("blog");
 
-export const getPosts = async (token: string): Promise<Post[]> => {
+export const getPosts = async (
+  token?: string,
+  fetchUrl?: string
+): Promise<Post[]> => {
+  let headers = {};
+
+  const url = fetchUrl ? fetchUrl : `${BASE_URL}/recent/`;
+  if (token) headers = { Authorization: `Bearer ${token}` };
+
   try {
-    const data = await fetch(`${BASE_URL}/recent/`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const data = await fetch(url, {
+      headers,
     });
+    if (data.status !== 200) throw new Error("Logged out in this session.");
     return await data.json();
   } catch (e) {
     throw new Error(e.message);
