@@ -20,14 +20,10 @@ export interface Post {
   user: PostUser;
   timestamp: string;
   is_reply: boolean;
-  is_repost: boolean;
   heart_count: number;
   reply_count: number;
   is_hearted?: boolean;
-  repost_count: number;
   reply_to?: Post | null;
-  repost_of?: Post | null;
-  is_only_repost: boolean;
 }
 
 export interface BlogState {

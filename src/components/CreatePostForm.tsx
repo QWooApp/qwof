@@ -79,7 +79,6 @@ function CreatePostForm({ elevation = 5 }: CreatePostFormProps) {
   const handlePostCreation = (post: Post) => {
     post.heart_count = 0;
     post.reply_count = 0;
-    post.repost_count = 0;
     dispatch(prependPost(post));
   };
 
